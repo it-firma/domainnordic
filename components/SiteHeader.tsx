@@ -76,9 +76,20 @@ const Arrow = ({ size = 11 }: { size?: number }) => (
 export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
   const [megaOpen, setMegaOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const closeTimer = useRef<NodeJS.Timeout | null>(null)
 
   const featured = INSIGHTS[0]
+
+  // Detect scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80)
+    }
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const openMega = () => {
     if (closeTimer.current) {
@@ -114,40 +125,67 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
+  // Calculate dynamic styles based on state
+  const isPill = scrolled
+  const isExpanded = scrolled && megaOpen
+
   return (
     <>
-      {/* PILL HEADER - DESKTOP & TABLET */}
+      {/* DESKTOP HEADER - morphs from full-width to pill */}
       <header
-        className="fixed top-4 left-6 right-6 z-50 hidden md:flex justify-center pointer-events-none"
-        style={{ pointerEvents: 'none' }}
+        className="fixed z-50 hidden md:flex justify-center pointer-events-none"
+        style={{
+          top: 0,
+          left: 0,
+          right: 0,
+          padding: isPill ? '16px 24px 0' : '0',
+          transition: 'padding 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
       >
         <div
-          className="pointer-events-auto flex items-center justify-between border"
+          className="pointer-events-auto flex items-center justify-between border w-full"
           style={{
-            background: 'rgba(15, 26, 61, 0.92)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            borderColor: 'rgba(255,255,255,0.08)',
-            borderRadius: megaOpen ? '24px' : '999px',
-            padding: '12px 12px 12px 28px',
-            maxWidth: megaOpen ? '1280px' : '1100px',
-            width: '100%',
-            boxShadow: '0 12px 40px rgba(15,26,61,0.25)',
-            transition: 'max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease',
+            maxWidth: isExpanded ? '1280px' : isPill ? '1100px' : '1280px',
+            padding: isPill ? '12px 12px 12px 28px' : '28px 32px',
+            background: isPill ? 'rgba(15, 26, 61, 0.92)' : 'transparent',
+            borderColor: isPill ? 'rgba(255,255,255,0.08)' : 'transparent',
+            borderRadius: isExpanded ? '24px' : isPill ? '999px' : '0',
+            boxShadow: isPill ? '0 12px 40px rgba(15,26,61,0.25)' : 'none',
+            backdropFilter: isPill ? 'blur(16px)' : 'blur(0px)',
+            WebkitBackdropFilter: isPill ? 'blur(16px)' : 'blur(0px)',
+            transition:
+              'max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1), padding 0.45s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, border-color 0.4s ease, border-radius 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, backdrop-filter 0.4s ease',
           }}
         >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0">
             <Image src="/images/logo-header.png" alt="DomainNordic" width={32} height={32} className="h-8 w-auto" priority />
             <div className="flex flex-col">
-              <span className="text-[14px] font-semibold tracking-tight leading-none text-white">DomainNordic</span>
-              <span className="text-[9.5px] mt-0.5 tracking-[0.24em] uppercase text-white/50">Advisory Group</span>
+              <span
+                className="font-semibold tracking-tight leading-none text-white"
+                style={{ fontSize: isPill ? '14px' : '15px', transition: 'font-size 0.3s ease' }}
+              >
+                DomainNordic
+              </span>
+              <span
+                className="mt-0.5 tracking-[0.24em] uppercase text-white/50"
+                style={{ fontSize: isPill ? '9.5px' : '10px', transition: 'font-size 0.3s ease' }}
+              >
+                Advisory Group
+              </span>
             </div>
           </Link>
 
           {/* Nav */}
-          <nav className="flex items-center gap-7 text-[13px]">
-            <Link href="/brands" className="text-white/75 hover:text-white transition py-2">
+          <nav
+            className="flex items-center"
+            style={{
+              gap: isPill ? '28px' : '36px',
+              fontSize: isPill ? '13px' : '13.5px',
+              transition: 'gap 0.3s ease, font-size 0.3s ease',
+            }}
+          >
+            <Link href="/brands" className="text-white/70 hover:text-white transition py-2">
               Brands
             </Link>
 
@@ -159,7 +197,7 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
               <Link
                 href="/services"
                 className={`flex items-center gap-1.5 py-2 transition ${
-                  megaOpen ? 'text-white' : 'text-white/75 hover:text-white'
+                  megaOpen ? 'text-white' : 'text-white/70 hover:text-white'
                 }`}
                 aria-expanded={megaOpen}
                 aria-haspopup="true"
@@ -169,13 +207,13 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
               </Link>
             </div>
 
-            <Link href="/approach" className="text-white/75 hover:text-white transition py-2">
+            <Link href="/approach" className="text-white/70 hover:text-white transition py-2">
               Approach
             </Link>
-            <Link href="/insights" className="text-white/75 hover:text-white transition py-2">
+            <Link href="/insights" className="text-white/70 hover:text-white transition py-2">
               Insights
             </Link>
-            <Link href="/contact" className="text-white/75 hover:text-white transition py-2">
+            <Link href="/contact" className="text-white/70 hover:text-white transition py-2">
               Contact
             </Link>
           </nav>
@@ -183,8 +221,14 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
           {/* CTA */}
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-[18px] py-2 rounded-full text-[12.5px] font-medium text-white transition flex-shrink-0"
-            style={{ background: '#2152E8' }}
+            className="inline-flex items-center gap-2 text-white font-medium flex-shrink-0"
+            style={{
+              background: '#2152E8',
+              padding: isPill ? '8px 18px' : '10px 20px',
+              fontSize: isPill ? '12.5px' : '13px',
+              borderRadius: isPill ? '999px' : '6px',
+              transition: 'padding 0.3s ease, font-size 0.3s ease, border-radius 0.3s ease',
+            }}
           >
             Book consultation
             <Arrow />
@@ -194,13 +238,16 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
 
       {/* MEGA PANEL - DESKTOP */}
       <div
-        className="fixed left-6 right-6 z-40 hidden md:flex justify-center pointer-events-none"
+        className="fixed z-40 hidden md:flex justify-center pointer-events-none"
         style={{
           top: '76px',
+          left: 0,
+          right: 0,
+          padding: '0 24px',
           opacity: megaOpen ? 1 : 0,
           visibility: megaOpen ? 'visible' : 'hidden',
           transform: megaOpen ? 'translateY(0)' : 'translateY(-12px)',
-          transition: 'opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear ' + (megaOpen ? '0s' : '0.3s'),
+          transition: `opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear ${megaOpen ? '0s' : '0.3s'}`,
         }}
         onMouseEnter={openMega}
         onMouseLeave={scheduleCloseMega}
@@ -210,9 +257,10 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
           style={{
             maxWidth: '1280px',
             background: 'white',
-            borderRadius: '24px',
+            borderRadius: scrolled ? '24px' : '0 0 16px 16px',
             borderColor: 'rgba(15,26,61,0.06)',
             boxShadow: '0 24px 64px rgba(15,26,61,0.18)',
+            transition: 'border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
           {/* LEFT: Services */}
@@ -313,8 +361,16 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
         </div>
       </div>
 
-      {/* MOBILE HEADER - simple bar */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-50" style={{ background: 'rgba(15, 26, 61, 0.95)', backdropFilter: 'blur(16px)' }}>
+      {/* MOBILE HEADER */}
+      <header
+        className="md:hidden fixed top-0 left-0 right-0 z-50"
+        style={{
+          background: scrolled ? 'rgba(15, 26, 61, 0.95)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(16px)' : 'blur(0px)',
+          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'blur(0px)',
+          transition: 'background 0.3s ease, backdrop-filter 0.3s ease',
+        }}
+      >
         <div className="px-5 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3" onClick={() => setMobileOpen(false)}>
             <Image src="/images/logo-header.png" alt="DomainNordic" width={28} height={28} className="h-7 w-auto" priority />
