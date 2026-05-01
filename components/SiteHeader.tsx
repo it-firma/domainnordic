@@ -15,7 +15,7 @@ const BRAND_LIST = [
 function FlagIcon({ country }: { country: string }) {
   if (country === 'Norway') {
     return (
-      <svg width="20" height="14" viewBox="0 0 18 13" className="rounded-sm">
+      <svg width="18" height="13" viewBox="0 0 18 13" className="rounded-sm flex-shrink-0">
         <rect width="18" height="13" fill="#BA0C2F" />
         <rect x="5" width="2" height="13" fill="#FFFFFF" />
         <rect y="5.5" width="18" height="2" fill="#FFFFFF" />
@@ -26,7 +26,7 @@ function FlagIcon({ country }: { country: string }) {
   }
   if (country === 'Sweden') {
     return (
-      <svg width="20" height="14" viewBox="0 0 18 13" className="rounded-sm">
+      <svg width="18" height="13" viewBox="0 0 18 13" className="rounded-sm flex-shrink-0">
         <rect width="18" height="13" fill="#006AA7" />
         <rect x="5" width="2" height="13" fill="#FECC02" />
         <rect y="5.5" width="18" height="2" fill="#FECC02" />
@@ -35,16 +35,15 @@ function FlagIcon({ country }: { country: string }) {
   }
   if (country === 'Denmark') {
     return (
-      <svg width="20" height="14" viewBox="0 0 18 13" className="rounded-sm">
+      <svg width="18" height="13" viewBox="0 0 18 13" className="rounded-sm flex-shrink-0">
         <rect width="18" height="13" fill="#C8102E" />
         <rect x="5" width="2" height="13" fill="#FFFFFF" />
         <rect y="5.5" width="18" height="2" fill="#FFFFFF" />
       </svg>
     )
   }
-  // Finland
   return (
-    <svg width="20" height="14" viewBox="0 0 18 13" className="rounded-sm">
+    <svg width="18" height="13" viewBox="0 0 18 13" className="rounded-sm flex-shrink-0">
       <rect width="18" height="13" fill="#FFFFFF" />
       <rect x="5" width="2" height="13" fill="#003580" />
       <rect y="5.5" width="18" height="2" fill="#003580" />
@@ -61,7 +60,7 @@ const ChevronDown = ({ open }: { open: boolean }) => (
     style={{
       transition: 'transform 0.2s',
       transform: open ? 'rotate(180deg)' : 'rotate(0)',
-      opacity: open ? 1 : 0.6,
+      opacity: open ? 1 : 0.7,
     }}
   >
     <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -75,19 +74,12 @@ const Arrow = ({ size = 11 }: { size?: number }) => (
 )
 
 export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
-  const isDark = variant === 'dark'
-  const textColor = isDark ? 'text-white' : 'text-[#1A2447]'
-  const navColor = isDark ? 'text-white/70 hover:text-white' : 'text-[#6B7591] hover:text-[#1A2447]'
-  const subtitleColor = isDark ? 'text-white/50' : 'text-[#6B7591]'
-
   const [megaOpen, setMegaOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const closeTimer = useRef<NodeJS.Timeout | null>(null)
 
-  // Latest insight = first in INSIGHTS
   const featured = INSIGHTS[0]
 
-  // Hover with delay so users can move from nav to panel without losing it
   const openMega = () => {
     if (closeTimer.current) {
       clearTimeout(closeTimer.current)
@@ -95,8 +87,9 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
     }
     setMegaOpen(true)
   }
+
   const scheduleCloseMega = () => {
-    closeTimer.current = setTimeout(() => setMegaOpen(false), 150)
+    closeTimer.current = setTimeout(() => setMegaOpen(false), 180)
   }
 
   // Close on Escape
@@ -111,249 +104,310 @@ export default function SiteHeader({ variant = 'dark' }: { variant?: 'dark' | 'l
     return () => document.removeEventListener('keydown', onKey)
   }, [])
 
+  // Lock body scroll when mobile menu open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
   return (
-    <header className="relative z-30">
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8 py-6 md:py-8 flex items-center justify-between gap-3">
-        <Link href="/" className="flex items-center gap-3">
-          <Image src="/images/logo-header.png" alt="DomainNordic" width={32} height={32} className="h-8 w-auto" priority />
-          <div className="flex flex-col">
-            <span className={`text-[15px] font-semibold tracking-tight leading-none ${textColor}`}>DomainNordic</span>
-            <span className={`text-[10px] mt-0.5 tracking-widest uppercase ${subtitleColor}`}>Advisory Group</span>
-          </div>
-        </Link>
-
-        <nav className="hidden md:flex items-center gap-9 text-[13.5px]">
-          <Link href="/brands" className={`${navColor} transition`}>Brands</Link>
-
-          <div
-            className="relative"
-            onMouseEnter={openMega}
-            onMouseLeave={scheduleCloseMega}
-          >
-            <Link
-              href="/services"
-              className={`${navColor} transition flex items-center gap-1.5 ${megaOpen ? (isDark ? 'text-white' : 'text-[#1A2447]') : ''}`}
-              aria-expanded={megaOpen}
-              aria-haspopup="true"
-            >
-              Services
-              <ChevronDown open={megaOpen} />
-            </Link>
-          </div>
-
-          <Link href="/approach" className={`${navColor} transition`}>Approach</Link>
-          <Link href="/insights" className={`${navColor} transition`}>Insights</Link>
-          <Link href="/contact" className={`${navColor} transition`}>Contact</Link>
-        </nav>
-
-        <Link
-          href="/contact"
-          className="!hidden md:!inline-flex btn-primary"
-          style={{ padding: '10px 20px', fontSize: '13px' }}
-        >
-          Book consultation
-        </Link>
-
-        {/* Mobile burger */}
-        <button
-          className={`md:hidden ${textColor} p-2`}
-          aria-label="Toggle menu"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            {mobileOpen ? (
-              <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            ) : (
-              <>
-                <path d="M4 7H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M4 12H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M4 17H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </>
-            )}
-          </svg>
-        </button>
-      </div>
-
-      {/* MEGA PANEL */}
-      {megaOpen && (
+    <>
+      {/* PILL HEADER - DESKTOP & TABLET */}
+      <header
+        className="fixed top-4 left-6 right-6 z-50 hidden md:flex justify-center pointer-events-none"
+        style={{ pointerEvents: 'none' }}
+      >
         <div
-          className="absolute top-full left-0 right-0 hidden md:block"
+          className="pointer-events-auto flex items-center justify-between border"
           style={{
-            background: 'white',
-            boxShadow: '0 24px 48px rgba(15,26,61,0.12)',
-            animation: 'megaSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+            background: 'rgba(15, 26, 61, 0.92)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            borderColor: 'rgba(255,255,255,0.08)',
+            borderRadius: megaOpen ? '24px' : '999px',
+            padding: '12px 12px 12px 28px',
+            maxWidth: megaOpen ? '1280px' : '1100px',
+            width: '100%',
+            boxShadow: '0 12px 40px rgba(15,26,61,0.25)',
+            transition: 'max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease',
           }}
-          onMouseEnter={openMega}
-          onMouseLeave={scheduleCloseMega}
         >
-          <style>{`
-            @keyframes megaSlide {
-              from { opacity: 0; transform: translateY(-8px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-          `}</style>
-
-          <div className="mx-auto max-w-[1280px] grid grid-cols-12">
-            {/* LEFT: 7 cols, services */}
-            <div className="col-span-7 px-10 py-12">
-              <div className="pb-5 mb-8 border-b border-[#DEE3F0]">
-                <div className="num-tick text-[11px] font-medium uppercase tracking-[0.24em] text-[#6B7591] mb-3">Services</div>
-                <div className="text-[24px] font-medium leading-tight text-[#0F1A3D]" style={{ letterSpacing: '-0.01em' }}>
-                  Fifteen disciplines,<br />
-                  <span className="serif-italic" style={{ color: '#2152E8' }}>across four categories.</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-x-12 gap-y-9">
-                {SERVICES.map((cat) => (
-                  <div key={cat.category}>
-                    <div className="serif text-[24px] leading-none mb-2" style={{ color: '#2152E8' }}>{cat.categoryNum}.</div>
-                    <div className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#0F1A3D] pb-2 mb-3 border-b border-[#0F1A3D]">
-                      {cat.category}
-                    </div>
-                    <div className="space-y-1.5">
-                      {cat.items.map((item) => (
-                        <Link
-                          key={item.slug}
-                          href={`/services/${item.slug}`}
-                          className="block py-1 text-[13px] font-medium text-[#1A2447] hover:text-[#2152E8] transition-all"
-                          onClick={() => setMegaOpen(false)}
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-10 pt-5 border-t border-[#DEE3F0]">
-                <Link
-                  href="/services"
-                  className="inline-flex items-center gap-2 text-[13px] font-medium text-[#2152E8] hover:text-[#1845D4] transition"
-                  onClick={() => setMegaOpen(false)}
-                >
-                  View all 15 services
-                  <Arrow />
-                </Link>
-              </div>
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 flex-shrink-0">
+            <Image src="/images/logo-header.png" alt="DomainNordic" width={32} height={32} className="h-8 w-auto" priority />
+            <div className="flex flex-col">
+              <span className="text-[14px] font-semibold tracking-tight leading-none text-white">DomainNordic</span>
+              <span className="text-[9.5px] mt-0.5 tracking-[0.24em] uppercase text-white/50">Advisory Group</span>
             </div>
+          </Link>
 
-            {/* RIGHT: 5 cols, dark feature pane */}
-            <div className="col-span-5 relative overflow-hidden" style={{ background: '#0F1A3D' }}>
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(135deg, rgba(33,82,232,0.18) 0%, transparent 60%)' }}
-              />
-              <div className="relative z-10 px-10 py-12 text-white">
-                {/* Featured insight */}
-                <div className="num-tick text-[11px] font-medium uppercase tracking-[0.24em] mb-5" style={{ color: '#7AA0F0' }}>
-                  Latest insight
-                </div>
-                <div className="text-[24px] leading-[1.2] font-medium mb-3" style={{ letterSpacing: '-0.01em' }}>
-                  {featured.title.split(' ').slice(0, 4).join(' ')}{' '}
-                  <span className="serif-italic" style={{ color: '#7AA0F0' }}>
-                    {featured.title.split(' ').slice(4).join(' ')}
-                  </span>
-                </div>
-                <p className="text-[13px] leading-[1.65] text-white/65 mb-6">
-                  {featured.excerpt}
-                </p>
-                <Link
-                  href={`/insights/${featured.slug}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-[13px] font-medium text-white border border-white/15 hover:bg-white/10 hover:border-white/30 transition"
-                  style={{ background: 'rgba(255,255,255,0.05)' }}
-                  onClick={() => setMegaOpen(false)}
-                >
-                  Read briefing
-                  <Arrow />
-                </Link>
+          {/* Nav */}
+          <nav className="flex items-center gap-7 text-[13px]">
+            <Link href="/brands" className="text-white/75 hover:text-white transition py-2">
+              Brands
+            </Link>
 
-                {/* Brands */}
-                <div className="mt-9 pt-6 border-t border-white/10">
-                  <div className="num-tick text-[11px] font-medium uppercase tracking-[0.24em] text-white/50 mb-4">
-                    Our Brands
-                  </div>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-                    {BRAND_LIST.map((b) => (
-                      <a
-                        key={b.name}
-                        href={b.href}
-                        className="flex items-center gap-2.5 py-2 hover:opacity-80 transition"
-                      >
-                        <FlagIcon country={b.country} />
-                        <span className="text-[13px] text-white/85">
-                          {b.name}<span className="text-white/45">.io</span>
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* MOBILE PANEL */}
-      {mobileOpen && (
-        <div
-          className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-[#DEE3F0] max-h-[80vh] overflow-y-auto"
-          style={{ boxShadow: '0 24px 48px rgba(15,26,61,0.12)' }}
-        >
-          <div className="p-6 space-y-1">
-            <Link href="/brands" onClick={() => setMobileOpen(false)} className="block py-3 text-[15px] font-medium text-[#0F1A3D] border-b border-[#DEE3F0]">Brands</Link>
-
-            <details className="border-b border-[#DEE3F0]">
-              <summary className="py-3 text-[15px] font-medium text-[#0F1A3D] cursor-pointer flex items-center justify-between">
+            <div
+              className="relative"
+              onMouseEnter={openMega}
+              onMouseLeave={scheduleCloseMega}
+            >
+              <Link
+                href="/services"
+                className={`flex items-center gap-1.5 py-2 transition ${
+                  megaOpen ? 'text-white' : 'text-white/75 hover:text-white'
+                }`}
+                aria-expanded={megaOpen}
+                aria-haspopup="true"
+              >
                 Services
-                <span className="text-[#6B7591] text-[12px]">15 services</span>
-              </summary>
-              <div className="pb-4 pl-3 space-y-3">
-                {SERVICES.map((cat) => (
-                  <div key={cat.category}>
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#2152E8] mt-3 mb-1.5">
-                      {cat.categoryNum}. {cat.category}
-                    </div>
+                <ChevronDown open={megaOpen} />
+              </Link>
+            </div>
+
+            <Link href="/approach" className="text-white/75 hover:text-white transition py-2">
+              Approach
+            </Link>
+            <Link href="/insights" className="text-white/75 hover:text-white transition py-2">
+              Insights
+            </Link>
+            <Link href="/contact" className="text-white/75 hover:text-white transition py-2">
+              Contact
+            </Link>
+          </nav>
+
+          {/* CTA */}
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-[18px] py-2 rounded-full text-[12.5px] font-medium text-white transition flex-shrink-0"
+            style={{ background: '#2152E8' }}
+          >
+            Book consultation
+            <Arrow />
+          </Link>
+        </div>
+      </header>
+
+      {/* MEGA PANEL - DESKTOP */}
+      <div
+        className="fixed left-6 right-6 z-40 hidden md:flex justify-center pointer-events-none"
+        style={{
+          top: '76px',
+          opacity: megaOpen ? 1 : 0,
+          visibility: megaOpen ? 'visible' : 'hidden',
+          transform: megaOpen ? 'translateY(0)' : 'translateY(-12px)',
+          transition: 'opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear ' + (megaOpen ? '0s' : '0.3s'),
+        }}
+        onMouseEnter={openMega}
+        onMouseLeave={scheduleCloseMega}
+      >
+        <div
+          className="pointer-events-auto w-full grid grid-cols-12 overflow-hidden border"
+          style={{
+            maxWidth: '1280px',
+            background: 'white',
+            borderRadius: '24px',
+            borderColor: 'rgba(15,26,61,0.06)',
+            boxShadow: '0 24px 64px rgba(15,26,61,0.18)',
+          }}
+        >
+          {/* LEFT: Services */}
+          <div className="col-span-7 px-10 py-10">
+            <div className="pb-5 mb-7 border-b border-[#DEE3F0]">
+              <div className="num-tick text-[11px] font-medium uppercase tracking-[0.24em] text-[#6B7591] mb-2.5">Services</div>
+              <div className="text-[22px] font-medium leading-tight text-[#0F1A3D]" style={{ letterSpacing: '-0.01em' }}>
+                Fifteen disciplines,<br />
+                <span className="serif-italic" style={{ color: '#2152E8' }}>across four categories.</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-x-10 gap-y-7">
+              {SERVICES.map((cat) => (
+                <div key={cat.category}>
+                  <div className="serif text-[22px] leading-none mb-1.5" style={{ color: '#2152E8' }}>{cat.categoryNum}.</div>
+                  <div className="text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[#0F1A3D] pb-2 mb-2.5 border-b border-[#0F1A3D]">
+                    {cat.category}
+                  </div>
+                  <div className="space-y-1">
                     {cat.items.map((item) => (
                       <Link
                         key={item.slug}
                         href={`/services/${item.slug}`}
-                        onClick={() => setMobileOpen(false)}
-                        className="block py-1.5 text-[13.5px] text-[#1A2447]"
+                        className="block py-1 text-[13px] font-medium text-[#1A2447] hover:text-[#2152E8] transition"
+                        onClick={() => setMegaOpen(false)}
                       >
                         {item.name}
                       </Link>
                     ))}
                   </div>
-                ))}
-                <Link
-                  href="/services"
-                  onClick={() => setMobileOpen(false)}
-                  className="block mt-4 py-2 text-[13px] font-medium text-[#2152E8]"
-                >
-                  View all services →
-                </Link>
-              </div>
-            </details>
+                </div>
+              ))}
+            </div>
 
-            <Link href="/approach" onClick={() => setMobileOpen(false)} className="block py-3 text-[15px] font-medium text-[#0F1A3D] border-b border-[#DEE3F0]">Approach</Link>
-            <Link href="/insights" onClick={() => setMobileOpen(false)} className="block py-3 text-[15px] font-medium text-[#0F1A3D] border-b border-[#DEE3F0]">Insights</Link>
-            <Link href="/contact" onClick={() => setMobileOpen(false)} className="block py-3 text-[15px] font-medium text-[#0F1A3D] border-b border-[#DEE3F0]">Contact</Link>
-
-            <div className="pt-4">
+            <div className="mt-8 pt-5 border-t border-[#DEE3F0]">
               <Link
-                href="/contact"
-                onClick={() => setMobileOpen(false)}
-                className="btn-primary w-full justify-center"
+                href="/services"
+                className="inline-flex items-center gap-2 text-[13px] font-medium text-[#2152E8] hover:text-[#1845D4] transition"
+                onClick={() => setMegaOpen(false)}
               >
-                Book consultation
-                <Arrow size={13} />
+                View all 15 services
+                <Arrow />
               </Link>
             </div>
           </div>
+
+          {/* RIGHT: Feature pane */}
+          <div className="col-span-5 relative overflow-hidden" style={{ background: '#0F1A3D' }}>
+            <div
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(135deg, rgba(33,82,232,0.18) 0%, transparent 60%)' }}
+            />
+            <div className="relative z-10 px-10 py-10 text-white">
+              <div className="num-tick text-[11px] font-medium uppercase tracking-[0.24em] mb-4" style={{ color: '#7AA0F0' }}>
+                Latest insight
+              </div>
+              <div className="text-[22px] leading-[1.2] font-medium mb-2" style={{ letterSpacing: '-0.01em' }}>
+                {featured.title.split(' ').slice(0, 4).join(' ')}{' '}
+                <span className="serif-italic" style={{ color: '#7AA0F0' }}>
+                  {featured.title.split(' ').slice(4).join(' ')}
+                </span>
+              </div>
+              <p className="text-[12.5px] leading-[1.65] text-white/65 mb-5">
+                {featured.excerpt}
+              </p>
+              <Link
+                href={`/insights/${featured.slug}`}
+                className="inline-flex items-center gap-2 px-[18px] py-2 rounded-md text-[12px] font-medium text-white transition"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.18)' }}
+                onClick={() => setMegaOpen(false)}
+              >
+                Read briefing
+                <Arrow />
+              </Link>
+
+              <div className="mt-7 pt-5 border-t border-white/10">
+                <div className="num-tick text-[11px] font-medium uppercase tracking-[0.24em] text-white/50 mb-3">
+                  Our Brands
+                </div>
+                <div className="grid grid-cols-2 gap-x-3 gap-y-0.5">
+                  {BRAND_LIST.map((b) => (
+                    <a
+                      key={b.name}
+                      href={b.href}
+                      className="flex items-center gap-2 py-1.5 hover:opacity-80 transition"
+                    >
+                      <FlagIcon country={b.country} />
+                      <span className="text-[12px] text-white/85">
+                        {b.name}<span className="text-white/45">.io</span>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      )}
-    </header>
+      </div>
+
+      {/* MOBILE HEADER - simple bar */}
+      <header className="md:hidden fixed top-0 left-0 right-0 z-50" style={{ background: 'rgba(15, 26, 61, 0.95)', backdropFilter: 'blur(16px)' }}>
+        <div className="px-5 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3" onClick={() => setMobileOpen(false)}>
+            <Image src="/images/logo-header.png" alt="DomainNordic" width={28} height={28} className="h-7 w-auto" priority />
+            <div className="flex flex-col">
+              <span className="text-[14px] font-semibold tracking-tight leading-none text-white">DomainNordic</span>
+              <span className="text-[9.5px] mt-0.5 tracking-[0.24em] uppercase text-white/50">Advisory Group</span>
+            </div>
+          </Link>
+
+          <button
+            className="text-white p-2"
+            aria-label="Toggle menu"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              {mobileOpen ? (
+                <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              ) : (
+                <>
+                  <path d="M4 7H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M4 12H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M4 17H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </>
+              )}
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      {/* MOBILE PANEL */}
+      <div
+        className={`md:hidden fixed inset-0 z-40 bg-white overflow-y-auto transition-opacity duration-300 ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        style={{ paddingTop: '64px' }}
+      >
+        <div className="p-6 space-y-1">
+          <Link href="/brands" onClick={() => setMobileOpen(false)} className="block py-3 text-[15px] font-medium text-[#0F1A3D] border-b border-[#DEE3F0]">Brands</Link>
+
+          <details className="border-b border-[#DEE3F0] group">
+            <summary className="py-3 text-[15px] font-medium text-[#0F1A3D] cursor-pointer flex items-center justify-between list-none">
+              Services
+              <span className="text-[#6B7591] text-[12px] flex items-center gap-2">
+                15 services
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="transition group-open:rotate-180">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </span>
+            </summary>
+            <div className="pb-4 pl-3 space-y-3">
+              {SERVICES.map((cat) => (
+                <div key={cat.category}>
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#2152E8] mt-3 mb-1.5">
+                    {cat.categoryNum}. {cat.category}
+                  </div>
+                  {cat.items.map((item) => (
+                    <Link
+                      key={item.slug}
+                      href={`/services/${item.slug}`}
+                      onClick={() => setMobileOpen(false)}
+                      className="block py-1.5 text-[13.5px] text-[#1A2447]"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+              <Link
+                href="/services"
+                onClick={() => setMobileOpen(false)}
+                className="block mt-4 py-2 text-[13px] font-medium text-[#2152E8]"
+              >
+                View all services →
+              </Link>
+            </div>
+          </details>
+
+          <Link href="/approach" onClick={() => setMobileOpen(false)} className="block py-3 text-[15px] font-medium text-[#0F1A3D] border-b border-[#DEE3F0]">Approach</Link>
+          <Link href="/insights" onClick={() => setMobileOpen(false)} className="block py-3 text-[15px] font-medium text-[#0F1A3D] border-b border-[#DEE3F0]">Insights</Link>
+          <Link href="/contact" onClick={() => setMobileOpen(false)} className="block py-3 text-[15px] font-medium text-[#0F1A3D] border-b border-[#DEE3F0]">Contact</Link>
+
+          <div className="pt-4">
+            <Link
+              href="/contact"
+              onClick={() => setMobileOpen(false)}
+              className="btn-primary w-full justify-center"
+            >
+              Book consultation
+              <Arrow size={13} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
