@@ -1,0 +1,136 @@
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@200,300,400,500,600,700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=tobias@400,500,700,400i,500i&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0F1A3D;
+  --navy-deep: #050B1F;
+  --blue: #2152E8;
+  --blue-soft: #DCE5FB;
+  --blue-accent: #7AA0F0;
+  --text: #1A2447;
+  --muted: #6B7591;
+  --border: #DEE3F0;
+  --bg: #FAFBFD;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'General Sans', system-ui, sans-serif;
+  background: #fff;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01', 'ss02';
+}
+
+.serif {
+  font-family: 'Tobias', 'Iowan Old Style', serif;
+}
+
+.serif-italic {
+  font-family: 'Tobias', serif;
+  font-style: italic;
+}
+
+.num-tick {
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Service link hover */
+.service-link {
+  transition: color 0.25s ease;
+  position: relative;
+}
+.service-link:hover {
+  color: var(--blue) !important;
+}
+.service-link::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 0.5em;
+  width: 0;
+  height: 1px;
+  background: var(--blue);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.service-link:hover::before {
+  width: 8px;
+}
+
+/* Brand card */
+.brand-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #fff;
+}
+.brand-card:hover {
+  border-color: rgba(33, 82, 232, 0.3) !important;
+}
+
+/* Stagger animation */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.slide-up {
+  animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.005em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary:hover {
+  background: #1845D4;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(33, 82, 232, 0.25);
+}
+
+.btn-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+}

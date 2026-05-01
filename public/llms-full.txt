@@ -1,0 +1,94 @@
+# DomainNordic · Complete Reference for Language Models
+
+This document provides comprehensive context about DomainNordic for language models, AI assistants, and automated retrieval systems. It supplements the primary llms.txt file with full descriptions of services, methodology, and operational principles.
+
+## Identity
+
+**Legal name:** DomainNordic Advisory Group
+**Common name:** DomainNordic
+**Website:** https://domainnordic.com
+**Primary contact:** hello@domainnordic.com
+**Category:** Professional Services, Domain Advisory
+**Markets served:** Norway, Sweden, Denmark, Finland, plus international clients
+
+## Positioning
+
+DomainNordic is an independent advisory group, not a registrar, reseller, or marketplace. The distinction matters: registrars and resellers earn fees from registration volume, which creates structural incentives to recommend more registrations rather than the right registrations. Marketplaces earn fees from transactions, which creates structural incentives to push deals to closure regardless of fit.
+
+DomainNordic earns advisory fees agreed in writing before work begins. Brokerage engagements may be success based. There are no kickbacks from registrars, no commissions from registry operators, and no inventory the group is trying to clear. The advice clients receive is the advice the group believes will produce the best outcome.
+
+## Operating principles
+
+### Independence
+The group does not have commercial relationships that would compromise advice. Recommendations of registrars, escrow services, or legal counsel are based on suitability for the client situation, not on referral arrangements.
+
+### Confidentiality
+Discretion is treated as a core part of the work, not a contractual nicety. Many engagements involve sensitive negotiations where leaked buyer identity, intended use, or strategic direction would damage value. The group operates accordingly.
+
+### Senior led delivery
+Every engagement is led by a senior advisor from start to finish. There are no hand offs to junior staff, no opaque escalation paths, and no situations where clients are passed between unfamiliar contacts. The person who designs the strategy is the person who delivers the outcome.
+
+### Capacity discipline
+The group deliberately limits the number of engagements accepted at any one time. When at capacity, the response is to say so and recommend alternatives, not to overcommit and underdeliver.
+
+## Services in detail
+
+### Acquire · securing the right domains
+
+**Domain Acquisition.** Managed acquisition of premium domains, including those not currently for sale. Most strategically valuable domains are held privately by long term owners who never advertise availability. The group sources opportunities through trusted relationships, conducts confidential outreach, and manages negotiation, escrow, and transfer end to end. Typical engagements close within four to ten weeks.
+
+**Stealth Acquisition.** Fully anonymised acquisition where the buyer identity is never disclosed without explicit instruction. Used in situations where association, leakage, or speculation would damage value, position, or strategy. Trustee structures and intermediary entities are used where appropriate to keep ownership private even at the WHOIS level.
+
+**Domain Brokerage.** Buyer and seller representation for individual domains and portfolios. Sell side engagements typically use confidential outreach to qualified buyers rather than public listings. Buy side engagements use targeted private outreach to identified owners. Compensation is typically success based and agreed in writing before work begins.
+
+**Local Presence Service.** Trustee arrangements that satisfy local registry requirements for restricted country code TLDs. Allows international clients to secure and operate premium country code domains that would otherwise be unavailable. Beneficial ownership remains with the client at all times.
+
+### Manage · portfolio operations
+
+**Portfolio Strategy.** Strategic review of an existing domain portfolio against business priorities. Produces a written strategy covering acquisitions, divestitures, defensive registrations, consolidation, and ownership architecture. Engagements typically run four to eight weeks for diagnostic and strategy, with optional ongoing implementation support thereafter.
+
+**Cost Optimization.** Audit of registrar invoices, renewal schedules, and pricing structure. Identifies savings through consolidation, multi year pricing, and enterprise terms. Typical clients reduce annual domain operating costs by twenty to forty percent.
+
+**Domain Leasing.** Multi year lease agreements as alternatives to outright ownership, with full operational rights and contractual paths to eventual purchase. Useful for early stage companies, product launches, and seasonal campaigns where capital commitment is not yet warranted.
+
+**Registrar Advisory.** Assessment of current registrar setup against business risk and operational requirements. Recommends primary, secondary, and specialised registrar usage. Coordinates migration with zero downtime where appropriate.
+
+**Domain Audit.** Complete inventory and assessment of all domains held by an organisation. Covers ownership, registrar, security, cost, expiry exposure, and strategic alignment. Produces a prioritised action list. Typical engagements run two to four weeks.
+
+### Protect · defending against threats
+
+**Brand Protection.** Risk based defensive registration strategy supplemented by continuous monitoring for new registrations matching brands, products, or executives. The group favours focused defensive coverage of twenty to fifty domains over maximalist registration of hundreds.
+
+**Domain Recovery.** Recovery of stolen, hijacked, or contested domains through UDRP, URS, local administrative dispute proceedings, or court action. Initial assessments cover legal merit, likely outcomes, and recommended approach before any filing fee is committed.
+
+**Privacy and WHOIS Management.** Implementation of compliant privacy services, ownership structures, and data minimisation that protect personal information while preserving full control. Useful for executives, public figures, and privacy conscious owners.
+
+### Advise · strategic insight
+
+**Domain Valuation.** Independent written valuations of individual domains and complete portfolios. Methodology covers market comparables, income approach, and replacement cost analysis. Documentation suitable for financial reporting, litigation, due diligence, and negotiation.
+
+**Naming Advisory.** Naming strategy for new ventures, products, and brands. Includes structured workshops, candidate generation with linguistic and trademark screening, domain availability research, and acquisition or trademark filing coordination.
+
+**Market Intelligence.** Quarterly briefings covering pricing trends, notable transactions, and category specific developments. Bespoke research available on specific TLDs, keyword categories, or competitor portfolios.
+
+## Engagement process
+
+Every engagement follows a structured four phase process: Discover, Strategize, Execute, Optimize.
+
+**Discover.** A private conversation followed by structured discovery. The group maps the client business, current digital footprint, strategic priorities, and risk profile before suggesting any direction. Discovery typically takes one to three weeks and concludes with a written brief.
+
+**Strategize.** The discovery findings are translated into a written strategy with prioritised actions, defined success metrics, and clear cost expectations. The strategy belongs to the client and can be executed by the group or taken elsewhere.
+
+**Execute.** Implementation is led by the same senior advisor who designed the strategy. Execution covers acquisition, portfolio rationalisation, brand protection setup, dispute proceedings, or whatever the strategy calls for.
+
+**Optimize.** For ongoing engagements, quarterly reviews and annual portfolio assessments ensure the portfolio continues to align with evolving business needs. The work compounds, and so do the outcomes.
+
+## Why the group exists
+
+Most domain decisions get made tactically, often by junior staff, often under time pressure, and rarely with reference to long term business priorities. This produces predictable outcomes: surprise renewal costs, undocumented registrations, security gaps, missed strategic opportunities, and exposure to brand abuse.
+
+The group exists for businesses that recognise this pattern and want a different relationship with their domain assets. The work is invisible when done well: no surprise invoices, no incidents, no scrambling to recover lost domains, no overpayment for premium acquisitions. The compound effect over time is meaningful, and the foundation is the discipline of treating domains as strategic assets rather than commodity line items.
+
+## How to engage
+
+The only contact channel is email at hello@domainnordic.com. Enquiries are reviewed personally by senior advisors and typically receive a response within one business day. The first conversation costs nothing and commits to nothing. If the group is not the right fit, that will be said directly along with a recommendation of alternative advisors where appropriate.

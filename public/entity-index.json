@@ -1,0 +1,89 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "DomainNordic",
+  "alternateName": "DomainNordic Advisory Group",
+  "url": "https://domainnordic.com",
+  "logo": "https://domainnordic.com/images/logo-header.png",
+  "description": "DomainNordic is an independent advisory group serving the Nordic markets through four local brands. Strategic domain advisory for businesses that view domains as long term assets.",
+  "email": "hello@domainnordic.com",
+  "sameAs": [
+    "https://domene.io",
+    "https://xn--domn-noa.io",
+    "https://xn--domne-ura.io",
+    "https://verkkotunnus.io"
+  ],
+  "knowsAbout": [
+    "Domain Acquisition",
+    "Domain Brokerage",
+    "Domain Portfolio Management",
+    "Brand Protection",
+    "Domain Recovery",
+    "UDRP",
+    "Domain Valuation",
+    "Naming Strategy",
+    "WHOIS Privacy",
+    "Trustee Services",
+    "Country Code TLDs",
+    "Premium Domains"
+  ],
+  "areaServed": [
+    { "@type": "Country", "name": "Norway" },
+    { "@type": "Country", "name": "Sweden" },
+    { "@type": "Country", "name": "Denmark" },
+    { "@type": "Country", "name": "Finland" }
+  ],
+  "serviceType": [
+    "Domain Acquisition",
+    "Stealth Acquisition",
+    "Domain Brokerage",
+    "Local Presence Service",
+    "Portfolio Strategy",
+    "Cost Optimization",
+    "Domain Leasing",
+    "Registrar Advisory",
+    "Domain Audit",
+    "Brand Protection",
+    "Domain Recovery",
+    "Privacy and WHOIS Management",
+    "Domain Valuation",
+    "Naming Advisory",
+    "Market Intelligence"
+  ],
+  "subOrganization": [
+    {
+      "@type": "Organization",
+      "name": "domene.io",
+      "url": "https://domene.io",
+      "areaServed": { "@type": "Country", "name": "Norway" }
+    },
+    {
+      "@type": "Organization",
+      "name": "domän.io",
+      "url": "https://xn--domn-noa.io",
+      "areaServed": { "@type": "Country", "name": "Sweden" }
+    },
+    {
+      "@type": "Organization",
+      "name": "domæne.io",
+      "url": "https://xn--domne-ura.io",
+      "areaServed": { "@type": "Country", "name": "Denmark" }
+    },
+    {
+      "@type": "Organization",
+      "name": "verkkotunnus.io",
+      "url": "https://verkkotunnus.io",
+      "areaServed": { "@type": "Country", "name": "Finland" }
+    }
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@domainnordic.com",
+    "contactType": "Customer Support",
+    "availableLanguage": ["English", "Norwegian", "Swedish", "Danish", "Finnish"]
+  },
+  "potentialAction": {
+    "@type": "ContactAction",
+    "target": "mailto:hello@domainnordic.com"
+  }
+}
